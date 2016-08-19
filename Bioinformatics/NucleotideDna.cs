@@ -9,7 +9,7 @@ namespace Bioinformatics
     /// <summary>
     /// A Dna Strand
     /// </summary>
-    public class DnaStrand
+    public class NucleotideDna
     {
         private string _strand;
 
@@ -21,7 +21,7 @@ namespace Bioinformatics
         /// </summary>
         /// <param name="strand">A string of 'A' 'T' 'G' 'C' chars</param>
         /// <exception cref="ArgumentException">Throws upon invalid input</exception>
-        public DnaStrand(string strand)
+        public NucleotideDna(string strand)
         {
             _strand = verifyInput(strand);
         }
@@ -55,12 +55,21 @@ namespace Bioinformatics
         #endregion
 
 
+        /// <summary>
+        /// Returns the nucleotide strand in char format
+        /// </summary>
+        public string Dna
+        {
+            get { return _strand; }
+        }
+
+
 
         /// <summary>
         /// Counts the number of times the given pattern appears in the strand
         /// </summary>
         /// <param name="pattern">The pattern to search for</param>
-        public int PatternCount(DnaStrand pattern)
+        public int PatternCount(NucleotideDna pattern)
         {
             int count = 0;
             string pattern_str = pattern.ToString();
@@ -83,7 +92,7 @@ namespace Bioinformatics
         /// Scans the strand for the most frequent patterns that appear
         /// </summary>
         /// <param name="k">The length of patterns to search for</param>
-        public IEnumerable<DnaStrand> FrequentPatterns(int k)
+        public IEnumerable<NucleotideDna> FrequentPatterns(int k)
         {
             Dictionary<string, int> patternCounts = new Dictionary<string, int>();
 
@@ -94,22 +103,43 @@ namespace Bioinformatics
             {
                 string pattern = strand_str.Substring(i, k);
                 if (!patternCounts.ContainsKey(pattern))
-                    patternCounts.Add(pattern, PatternCount(new DnaStrand(pattern)));
+                    patternCounts.Add(pattern, PatternCount(new NucleotideDna(pattern)));
             }
 
             int maxCount = patternCounts.Values.Max();
 
             var maxPatterns = patternCounts.Where(p => p.Value == maxCount);
-            return maxPatterns.Select(p => new DnaStrand(p.Key));
+            return maxPatterns.Select(p => new NucleotideDna(p.Key));
         }
 
 
+
+        public NucleotideDna ReverseComplement()
+        {
+            StringBuilder reverse = new StringBuilder(_strand.Length);
+
+            for (int i = (_strand.Length - 1); i >= 0; i--)
+            {
+                char c = _strand[i];
+
+                if (c == 'A')
+                    reverse.Append('T');
+                else if (c == 'T')
+                    reverse.Append('A');
+                else if (c == 'C')
+                    reverse.Append('G');
+                else if (c == 'G')
+                    reverse.Append('C');
+            }
+
+            return new NucleotideDna(reverse.ToString());
+        }
         
 
 
         public override string ToString()
         {
-            return _strand;
+            return Dna;
         }
     }
 }

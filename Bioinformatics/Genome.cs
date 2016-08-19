@@ -8,14 +8,14 @@ namespace Bioinformatics
 {
     public class Genome
     {
-        private DnaStrand _strand;
+        private NucleotideDna _strand;
 
 
         /// <summary>
         /// Creates a new Genome with the given input strand
         /// </summary>
         /// <param name="strand">Input Dna strand</param>
-        public Genome (DnaStrand strand)
+        public Genome (NucleotideDna strand)
         {
             _strand = strand;
         }
@@ -28,7 +28,7 @@ namespace Bioinformatics
         /// <param name="inputStrand">A string of 'A' 'T' 'G' 'C' chars</param>
         /// <exception cref="ArgumentException">Throws upon invalid input</exception>
         public Genome(string inputStrand) : 
-            this(new DnaStrand(inputStrand)) { }
+            this(new NucleotideDna(inputStrand)) { }
 
 
 

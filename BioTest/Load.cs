@@ -10,10 +10,10 @@ namespace BioTest
 {
     public static class Load
     {
-        public static DnaStrand LoadStrand(string filePath)
+        public static NucleotideDna LoadStrand(string filePath)
         {
             string rawText = File.ReadAllText(filePath);
-            return new DnaStrand(rawText);
+            return new NucleotideDna(rawText);
         }
     }
 }

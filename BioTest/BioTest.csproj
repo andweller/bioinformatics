@@ -52,18 +52,25 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DnaStrandTests.cs" />
+    <Compile Include="NucleotideDnaTests.cs" />
     <Compile Include="FrequentPatternsTests.cs" />
     <Compile Include="GenomeTests.cs" />
     <Compile Include="Load.cs" />
     <Compile Include="PatternCountTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReverseComplementTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bioinformatics\Bioinformatics.csproj">
       <Project>{82ea7aa6-567e-4824-a8c1-63d3d6cf2c63}</Project>
       <Name>Bioinformatics</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\datasets\frequentPatterns_dataset.txt" />
+    <Content Include="bin\Debug\datasets\patternCount_dataset.txt" />
+    <Content Include="bin\Debug\datasets\reverseComplement_dataset.txt" />
+    <Content Include="bin\Debug\genomes\Vibrio_cholerae.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

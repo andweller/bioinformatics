@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DnaStrand.cs" />
+    <Compile Include="NucleotideDna.cs" />
     <Compile Include="Genome.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
