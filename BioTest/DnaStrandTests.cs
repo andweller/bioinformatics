@@ -53,7 +53,7 @@ namespace BioTest
         [ExpectedException(typeof(ArgumentException))]
         public void DnaStrand_InvalidInput1()
         {
-            DnaStrand d = new DnaStrand("a");
+            DnaStrand d = new DnaStrand("Ea");
         }
 
 
@@ -77,7 +77,7 @@ namespace BioTest
         [ExpectedException(typeof(ArgumentException))]
         public void DnaStrand_InvalidInput4()
         {
-            DnaStrand d = new DnaStrand("ATGGTACaCT");
+            DnaStrand d = new DnaStrand("ATGGTACECT");
         }
 
     }

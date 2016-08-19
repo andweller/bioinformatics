@@ -53,6 +53,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DnaStrandTests.cs" />
+    <Compile Include="FrequentPatternsTests.cs" />
+    <Compile Include="GenomeTests.cs" />
+    <Compile Include="Load.cs" />
+    <Compile Include="PatternCountTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
