@@ -73,14 +73,13 @@ namespace Bioinformatics
         {
             int count = 0;
             string pattern_str = pattern.ToString();
-            string strand_str = Dna;
 
             int patternLength = pattern_str.Length;
-            int buffer = strand_str.Length - patternLength;
+            int buffer = Dna.Length - patternLength;
 
             for (int i = 0; i <= buffer; i++)
             {
-                if (strand_str.Substring(i, patternLength) == pattern_str)
+                if (Dna.Substring(i, patternLength) == pattern_str)
                     count++;
             }
 
@@ -96,12 +95,11 @@ namespace Bioinformatics
         {
             Dictionary<string, int> patternCounts = new Dictionary<string, int>();
 
-            string strand_str = Dna;
-            int buffer = strand_str.Length - k;
+            int buffer = Dna.Length - k;
 
             for (int i = 0; i <= buffer; i++)
             {
-                string pattern = strand_str.Substring(i, k);
+                string pattern = Dna.Substring(i, k);
                 if (!patternCounts.ContainsKey(pattern))
                     patternCounts.Add(pattern, PatternCount(new NucleotideDna(pattern)));
             }
@@ -119,11 +117,11 @@ namespace Bioinformatics
         /// </summary>
         public NucleotideDna ReverseComplement()
         {
-            StringBuilder reverse = new StringBuilder(_strand.Length);
+            StringBuilder reverse = new StringBuilder(Dna.Length);
 
-            for (int i = (_strand.Length - 1); i >= 0; i--)
+            for (int i = (Dna.Length - 1); i >= 0; i--)
             {
-                char c = _strand[i];
+                char c = Dna[i];
 
                 if (c == 'A')
                     reverse.Append('T');
