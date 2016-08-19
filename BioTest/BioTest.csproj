@@ -56,7 +56,9 @@
     <Compile Include="FrequentPatternsTests.cs" />
     <Compile Include="GenomeTests.cs" />
     <Compile Include="Load.cs" />
+    <Compile Include="PatternClumpsTests.cs" />
     <Compile Include="PatternCountTests.cs" />
+    <Compile Include="PatternMatchesIndiciesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseComplementTests.cs" />
   </ItemGroup>

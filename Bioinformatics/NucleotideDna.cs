@@ -135,6 +135,68 @@ namespace Bioinformatics
 
             return new NucleotideDna(reverse.ToString());
         }
+
+
+
+        /// <summary>
+        /// Returns the starting index of any occurances of the given pattern
+        /// in the nucleotide strand
+        /// </summary>
+        /// <param name="pattern">Pattern to search for</param>
+        public IEnumerable<int> PatternMatchesIndicies(NucleotideDna pattern)
+        {
+            List<int> matches = new List<int>();
+            int patternLength = pattern.Dna.Length;
+            int buffer = Dna.Length - patternLength;
+
+            for (int i = 0; i <= buffer; i++)
+            {
+                if (Dna.Substring(i, patternLength) == pattern.Dna)
+                    matches.Add(i);
+            }
+
+            return matches;
+        }
+
+
+
+        /// <summary>
+        /// Searches the strand for clumps of patterns.
+        /// </summary>
+        /// <param name="patternLength">The length of patterns to find</param>
+        /// <param name="windowSize">The window size in which to find clumps</param>
+        /// <param name="minOccurance">The minimum number of times the pattern should appear in the window</param>
+        /// <returns></returns>
+        public IEnumerable<NucleotideDna> PatternClumps(int patternLength, int windowSize, int minOccurance)
+        {
+            List<string> matches = new List<string>();
+
+            int buffer = Dna.Length - patternLength;
+
+            for (int scanIndex = 0; scanIndex <= buffer; scanIndex++)
+            {
+                string pattern = Dna.Substring(scanIndex, patternLength);
+
+                if (!matches.Contains(pattern))
+                {
+                    int count = 0;
+                    int bound = (scanIndex + windowSize) - patternLength;
+                    int windowIndex = scanIndex;
+
+                    while (windowIndex <= bound && windowIndex <= buffer)
+                    {
+                        if (Dna.Substring(windowIndex, patternLength) == pattern)
+                            count++;
+                        windowIndex++;
+                    }
+
+                    if (count >= minOccurance)
+                        matches.Add(pattern);
+                }
+            }
+
+            return matches.Select(m => new NucleotideDna(m));
+        }
         
 
 
