@@ -73,7 +73,7 @@ namespace Bioinformatics
         {
             int count = 0;
             string pattern_str = pattern.ToString();
-            string strand_str = _strand.ToString();
+            string strand_str = Dna;
 
             int patternLength = pattern_str.Length;
             int buffer = strand_str.Length - patternLength;
@@ -96,7 +96,7 @@ namespace Bioinformatics
         {
             Dictionary<string, int> patternCounts = new Dictionary<string, int>();
 
-            string strand_str = _strand.ToString();
+            string strand_str = Dna;
             int buffer = strand_str.Length - k;
 
             for (int i = 0; i <= buffer; i++)
@@ -114,6 +114,9 @@ namespace Bioinformatics
 
 
 
+        /// <summary>
+        /// Computes the reverse complement of the nucleotide strand
+        /// </summary>
         public NucleotideDna ReverseComplement()
         {
             StringBuilder reverse = new StringBuilder(_strand.Length);
