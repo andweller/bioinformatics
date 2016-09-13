@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="CytosineGuanineSkewMaxTests.cs" />
     <Compile Include="NucleotideDnaTests.cs" />
+    <Compile Include="Patterns\ApproximatePatternMatchesIndiciesTests.cs" />
     <Compile Include="Patterns\FrequentPatternsTests.cs" />
     <Compile Include="GenomeTests.cs" />
     <Compile Include="Load.cs" />

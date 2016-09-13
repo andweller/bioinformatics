@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bioinformatics.Algorithms;
 
 namespace Bioinformatics
 {
@@ -156,6 +157,30 @@ namespace Bioinformatics
             for (int i = 0; i <= buffer; i++)
             {
                 if (Dna.Substring(i, patternLength) == pattern.Dna)
+                    matches.Add(i);
+            }
+
+            return matches;
+        }
+
+
+
+        /// <summary>
+        /// Returns the starting index of any approximate matches of the given pattern.
+        /// </summary>
+        /// <param name="pattern">Pattern to search for</param>
+        /// <param name="maxDifferences">The maximum number of differences between a match and mismatch</param>
+        /// <returns></returns>
+        public IEnumerable<int> ApproximatePatternMatchesIndicies(NucleotideDna pattern, int maxDifferences)
+        {
+            List<int> matches = new List<int>();
+            int patternLength = pattern.Dna.Length;
+            int buffer = Dna.Length - patternLength;
+
+            for (int i = 0; i <= buffer; i++)
+            {
+                int distance = Hamming.Distance(Dna.Substring(i, patternLength), pattern.Dna);
+                if (distance <= maxDifferences)
                     matches.Add(i);
             }
 
