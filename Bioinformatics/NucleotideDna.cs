@@ -67,21 +67,46 @@ namespace Bioinformatics
 
 
         /// <summary>
-        /// Counts the number of times the given pattern appears in the strand.
+        /// Returns the number of times the given pattern appears in the strand.
         /// Running Time: O(n)
         /// </summary>
         /// <param name="pattern">The pattern to search for</param>
         public int PatternCount(NucleotideDna pattern)
         {
             int count = 0;
-            string pattern_str = pattern.ToString();
 
-            int patternLength = pattern_str.Length;
+            int patternLength = pattern.Dna.Length;
             int buffer = Dna.Length - patternLength;
 
-            for (int i = 0; i <= buffer; i++)
+            for (int index = 0; index <= buffer; index++)
             {
-                if (Dna.Substring(i, patternLength) == pattern_str)
+                if (Dna.Substring(index, patternLength) == pattern.Dna)
+                    count++;
+            }
+
+            return count;
+        }
+
+
+
+        /// <summary>
+        /// Returns the number of times the approximate given pattern appears in the strand.
+        /// Counts mismatches up to the given maximum number of differences.
+        /// Running Time: O(n)
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <param name="maxDifference">The maximum number of differences between a match and mismatch</param>
+        public int ApproximatePatternCount(NucleotideDna pattern, int maxDifference)
+        {
+            int count = 0;
+
+            int patternLength = pattern.Dna.Length;
+            int buffer = Dna.Length - patternLength;
+
+            for (int index = 0; index <= buffer; index++)
+            {
+                int distance = Hamming.Distance(Dna.Substring(index, patternLength), pattern.Dna);
+                if (distance <= maxDifference)
                     count++;
             }
 
@@ -167,11 +192,12 @@ namespace Bioinformatics
 
         /// <summary>
         /// Returns the starting index of any approximate matches of the given pattern.
+        /// Counts mismatches up to the given maximum number of differences.
         /// </summary>
         /// <param name="pattern">Pattern to search for</param>
         /// <param name="maxDifferences">The maximum number of differences between a match and mismatch</param>
         /// <returns></returns>
-        public IEnumerable<int> ApproximatePatternMatchesIndicies(NucleotideDna pattern, int maxDifferences)
+        public IEnumerable<int> ApproximatePatternMatchesIndicies(NucleotideDna pattern, int maxDifference)
         {
             List<int> matches = new List<int>();
             int patternLength = pattern.Dna.Length;
@@ -180,7 +206,7 @@ namespace Bioinformatics
             for (int i = 0; i <= buffer; i++)
             {
                 int distance = Hamming.Distance(Dna.Substring(i, patternLength), pattern.Dna);
-                if (distance <= maxDifferences)
+                if (distance <= maxDifference)
                     matches.Add(i);
             }
 
