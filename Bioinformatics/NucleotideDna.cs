@@ -179,6 +179,45 @@ namespace Bioinformatics
 
 
 
+        /// <summary>
+        /// Scans the strand for differences in Cytosine Guanine balance.
+        /// The skew maximizes where more Cytosine appears than Guanine.
+        /// Returns indicies where the skew maximizes.
+        /// Running Time: O(n)
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<int> CytosineGuanineSkewMaximumIndicies()
+        {
+            int maximum = Int32.MinValue;
+            List<int> locations = new List<int>();
+            int currentSkew = 0;
+
+            for (int index = 0; index < _strand.Length; index++)
+            {
+                char nucleotide = _strand[index];
+
+                if (nucleotide == 'C')
+                    currentSkew++;
+                else if (nucleotide == 'G')
+                    currentSkew--;
+
+                if (currentSkew > maximum)
+                {
+                    maximum = currentSkew;
+                    locations.Clear();
+                    locations.Add(index);
+                }
+                else if (currentSkew == maximum)
+                {
+                    locations.Add(index);
+                }
+            }
+
+            return locations;
+        }
+
+
+
         public override string ToString()
         {
             return Dna;

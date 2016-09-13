@@ -52,13 +52,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CytosineGuanineSkewMaxTests.cs" />
     <Compile Include="NucleotideDnaTests.cs" />
-    <Compile Include="FrequentPatternsTests.cs" />
+    <Compile Include="Patterns\FrequentPatternsTests.cs" />
     <Compile Include="GenomeTests.cs" />
     <Compile Include="Load.cs" />
-    <Compile Include="PatternClumpsTests.cs" />
-    <Compile Include="PatternCountTests.cs" />
-    <Compile Include="PatternMatchesIndiciesTests.cs" />
+    <Compile Include="Patterns\PatternClumpsTests.cs" />
+    <Compile Include="Patterns\PatternCountTests.cs" />
+    <Compile Include="Patterns\PatternMatchesIndiciesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseComplementTests.cs" />
   </ItemGroup>
