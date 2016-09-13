@@ -103,5 +103,6 @@ namespace BioTest
             int count = patterns.Count();
             Assert.AreEqual(1904, count);
         }
+
     }
 }

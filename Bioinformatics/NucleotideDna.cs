@@ -169,35 +169,9 @@ namespace Bioinformatics
         /// <returns></returns>
         public IEnumerable<NucleotideDna> PatternClumps(int patternLength, int windowSize, int minOccurance)
         {
-            List<string> matches = new List<string>();
-
-            int buffer = Dna.Length - patternLength;
-
-            for (int scanIndex = 0; scanIndex <= buffer; scanIndex++)
-            {
-                string pattern = Dna.Substring(scanIndex, patternLength);
-
-                if (!matches.Contains(pattern))
-                {
-                    int count = 0;
-                    int bound = (scanIndex + windowSize) - patternLength;
-                    int windowIndex = scanIndex;
-
-                    while (windowIndex <= bound && windowIndex <= buffer)
-                    {
-                        if (Dna.Substring(windowIndex, patternLength) == pattern)
-                            count++;
-                        windowIndex++;
-                    }
-
-                    if (count >= minOccurance)
-                        matches.Add(pattern);
-                }
-            }
-
-            return matches.Select(m => new NucleotideDna(m));
+            return Algorithms.Clumps.SlidingPatternClumps(_strand, patternLength, windowSize, minOccurance);
         }
-        
+
 
 
         public override string ToString()
