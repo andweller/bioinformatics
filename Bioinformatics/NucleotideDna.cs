@@ -56,7 +56,7 @@ namespace Bioinformatics
 
 
         /// <summary>
-        /// Returns the nucleotide strand in char format
+        /// Returns the nucleotide strand in char format.
         /// </summary>
         public string Dna
         {
@@ -66,7 +66,8 @@ namespace Bioinformatics
 
 
         /// <summary>
-        /// Counts the number of times the given pattern appears in the strand
+        /// Counts the number of times the given pattern appears in the strand.
+        /// Running Time: O(n)
         /// </summary>
         /// <param name="pattern">The pattern to search for</param>
         public int PatternCount(NucleotideDna pattern)
@@ -88,7 +89,8 @@ namespace Bioinformatics
 
 
         /// <summary>
-        /// Scans the strand for the most frequent patterns that appear
+        /// Scans the strand for the most frequent patterns that appear.
+        /// Running Time: O(n)
         /// </summary>
         /// <param name="k">The length of patterns to search for</param>
         public IEnumerable<NucleotideDna> FrequentPatterns(int k)
@@ -113,7 +115,8 @@ namespace Bioinformatics
 
 
         /// <summary>
-        /// Computes the reverse complement of the nucleotide strand
+        /// Computes the reverse complement of the nucleotide strand.
+        /// Running Time: O(n)
         /// </summary>
         public NucleotideDna ReverseComplement()
         {
@@ -140,7 +143,8 @@ namespace Bioinformatics
 
         /// <summary>
         /// Returns the starting index of any occurances of the given pattern
-        /// in the nucleotide strand
+        /// in the nucleotide strand.
+        /// Running Time: O(n)
         /// </summary>
         /// <param name="pattern">Pattern to search for</param>
         public IEnumerable<int> PatternMatchesIndicies(NucleotideDna pattern)
@@ -162,6 +166,7 @@ namespace Bioinformatics
 
         /// <summary>
         /// Searches the strand for clumps of patterns.
+        /// Running Time: O(n)
         /// </summary>
         /// <param name="patternLength">The length of patterns to find</param>
         /// <param name="windowSize">The window size in which to find clumps</param>
