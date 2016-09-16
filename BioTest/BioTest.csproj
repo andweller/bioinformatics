@@ -53,12 +53,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Algorithms\NucleotideNeighborTests.cs" />
-    <Compile Include="CytosineGuanineSkewMaxTests.cs" />
-    <Compile Include="NucleotideDnaTests.cs" />
+    <Compile Include="Bio\CytosineGuanineSkewMaxTests.cs" />
+    <Compile Include="Bio\NucleotideDnaTests.cs" />
     <Compile Include="Patterns\ApproximatePatternCountTests.cs" />
     <Compile Include="Patterns\ApproximatePatternMatchesIndiciesTests.cs" />
     <Compile Include="Patterns\FrequentPatternsTests.cs" />
-    <Compile Include="GenomeTests.cs" />
+    <Compile Include="Bio\GenomeTests.cs" />
     <Compile Include="Load.cs" />
     <Compile Include="Patterns\FrequentPatternsWithMismatchesAndReverseComplements.cs" />
     <Compile Include="Patterns\FrequentPatternsWithMismatchesTests.cs" />
@@ -66,8 +66,8 @@
     <Compile Include="Patterns\PatternCountTests.cs" />
     <Compile Include="Patterns\PatternMatchesIndiciesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReplicationOriginTests.cs" />
-    <Compile Include="ReverseComplementTests.cs" />
+    <Compile Include="Bio\ReplicationOriginTests.cs" />
+    <Compile Include="Bio\ReverseComplementTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bioinformatics\Bioinformatics.csproj">
