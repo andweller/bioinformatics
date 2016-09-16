@@ -10,7 +10,7 @@ namespace BioTest
         [TestMethod]
         public void Genome_Creation1()
         {
-            Bioinformatics.NucleotideDna d = new Bioinformatics.NucleotideDna("GACCATACTG");
+            Bioinformatics.DnaStrand d = new Bioinformatics.DnaStrand("GACCATACTG");
             Genome g = new Genome(d);
             Assert.AreEqual<string>("GACCATACTG", g.ToString());
         }

@@ -10,64 +10,64 @@ namespace BioTest
         [TestMethod]
         public void PatternCount_Simple()
         {
-            NucleotideDna strand = new NucleotideDna("GCGCG");
-            Assert.AreEqual(2, strand.PatternCount(new NucleotideDna("GCG")));
+            DnaStrand strand = new DnaStrand("GCGCG");
+            Assert.AreEqual(2, strand.PatternCount(new DnaStrand("GCG")));
         }
 
 
         [TestMethod]
         public void PatternCount_Test1()
         {
-            NucleotideDna strand = new NucleotideDna("ACGTACGTACGT");
-            Assert.AreEqual(3, strand.PatternCount(new NucleotideDna("CG")));
+            DnaStrand strand = new DnaStrand("ACGTACGTACGT");
+            Assert.AreEqual(3, strand.PatternCount(new DnaStrand("CG")));
         }
 
 
         [TestMethod]
         public void PatternCount_Test2()
         {
-            NucleotideDna strand = new NucleotideDna("AAAGAGTGTCTGATAGCAGCTTCTGAACTGGTTACCTGCCGTGAGTAAATTAAATTTTATTGACTTAGGTCACTAAATACTTTAACCAATATAGGCATAGCGCACAGACAGATAATAATTACAGAGTACACAACATCCAT");
-            Assert.AreEqual(4, strand.PatternCount(new NucleotideDna("AAA")));
+            DnaStrand strand = new DnaStrand("AAAGAGTGTCTGATAGCAGCTTCTGAACTGGTTACCTGCCGTGAGTAAATTAAATTTTATTGACTTAGGTCACTAAATACTTTAACCAATATAGGCATAGCGCACAGACAGATAATAATTACAGAGTACACAACATCCAT");
+            Assert.AreEqual(4, strand.PatternCount(new DnaStrand("AAA")));
         }
 
 
         [TestMethod]
         public void PatternCount_Test3()
         {
-            NucleotideDna strand = new NucleotideDna("AGCGTGCCGAAATATGCCGCCAGACCTGCTGCGGTGGCCTCGCCGACTTCACGGATGCCAAGTGCATAGAGGAAGCGAGCAAAGGTGGTTTCTTTCGCTTTATCCAGCGCGTTAACCACGTTCTGTGCCGACTTT");
-            Assert.AreEqual(4, strand.PatternCount(new NucleotideDna("TTT")));
+            DnaStrand strand = new DnaStrand("AGCGTGCCGAAATATGCCGCCAGACCTGCTGCGGTGGCCTCGCCGACTTCACGGATGCCAAGTGCATAGAGGAAGCGAGCAAAGGTGGTTTCTTTCGCTTTATCCAGCGCGTTAACCACGTTCTGTGCCGACTTT");
+            Assert.AreEqual(4, strand.PatternCount(new DnaStrand("TTT")));
         }
 
 
         [TestMethod]
         public void PatternCount_Test4()
         {
-            NucleotideDna strand = new NucleotideDna("GGACTTACTGACGTACG");
-            Assert.AreEqual(2, strand.PatternCount(new NucleotideDna("ACT")));
+            DnaStrand strand = new DnaStrand("GGACTTACTGACGTACG");
+            Assert.AreEqual(2, strand.PatternCount(new DnaStrand("ACT")));
         }
 
 
         [TestMethod]
         public void PatternCount_Test5()
         {
-            NucleotideDna strand = new NucleotideDna("ATCCGATCCCATGCCCATG");
-            Assert.AreEqual(5, strand.PatternCount(new NucleotideDna("CC")));
+            DnaStrand strand = new DnaStrand("ATCCGATCCCATGCCCATG");
+            Assert.AreEqual(5, strand.PatternCount(new DnaStrand("CC")));
         }
 
 
         [TestMethod]
         public void PatternCount_Test6()
         {
-            NucleotideDna strand = new NucleotideDna("CTGTTTTTGATCCATGATATGTTATCTCTCCGTCATCAGAAGAACAGTGACGGATCGCCCTCTCTCTTGGTCAGGCGACCGTTTGCCATAATGCCCATGCTTTCCAGCCAGCTCTCAAACTCCGGTGACTCGCGCAGGTTGAGTA");
-            Assert.AreEqual(9, strand.PatternCount(new NucleotideDna("CTC")));
+            DnaStrand strand = new DnaStrand("CTGTTTTTGATCCATGATATGTTATCTCTCCGTCATCAGAAGAACAGTGACGGATCGCCCTCTCTCTTGGTCAGGCGACCGTTTGCCATAATGCCCATGCTTTCCAGCCAGCTCTCAAACTCCGGTGACTCGCGCAGGTTGAGTA");
+            Assert.AreEqual(9, strand.PatternCount(new DnaStrand("CTC")));
         }
 
 
         [TestMethod]
         public void PatternCount_Test7()
         {
-            NucleotideDna strand = Load.LoadStrand("datasets//patternCount_dataset.txt");
-            Assert.AreEqual(35, strand.PatternCount(new NucleotideDna("CTCTAGTCT")));
+            DnaStrand strand = Load.LoadStrand("datasets//patternCount_dataset.txt");
+            Assert.AreEqual(35, strand.PatternCount(new DnaStrand("CTCTAGTCT")));
         }
     }
 }

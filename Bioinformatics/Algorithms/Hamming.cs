@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bioinformatics.Algorithms
 {
-    internal static class Hamming
+    public static class Hamming
     {
 
         /// <summary>
@@ -16,7 +16,7 @@ namespace Bioinformatics.Algorithms
         /// <param name="second">The second string</param>
         /// <exception cref="ArgumentException">Throws if the strings have different lengths</exception>
 
-        internal static int Distance(string first, string second)
+        public static int Distance(string first, string second)
         {
             if (first.Length != second.Length)
                 throw new ArgumentException("Both arguments must have the same length");
@@ -31,5 +31,7 @@ namespace Bioinformatics.Algorithms
 
             return difference;
         }
+
+        
     }
 }

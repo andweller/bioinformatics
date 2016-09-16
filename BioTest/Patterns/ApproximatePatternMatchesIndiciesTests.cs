@@ -11,8 +11,8 @@ namespace BioTest
         [TestMethod]
         public void ApproximatePatternMatchesIndicies_Simple()
         {
-            NucleotideDna strand = new NucleotideDna("CGCCCGAATCCAGAACGCATTCCCATATTTCGGGACCACTGGCCTCCACGGTACGGACGTCAATCAAAT");
-            var matches = strand.ApproximatePatternMatchesIndicies(new NucleotideDna("ATTCTGGA"), 3);
+            DnaStrand strand = new DnaStrand("CGCCCGAATCCAGAACGCATTCCCATATTTCGGGACCACTGGCCTCCACGGTACGGACGTCAATCAAAT");
+            var matches = strand.ApproximatePatternMatchesIndicies(new DnaStrand("ATTCTGGA"), 3);
 
             Assert.AreEqual(4, matches.Count());
             Assert.IsTrue(matches.Contains(6));
@@ -25,8 +25,8 @@ namespace BioTest
         [TestMethod]
         public void ApproximatePatternMatchesIndicies_Test1()
         {
-            NucleotideDna strand = new NucleotideDna("TTTTTTAAATTTTAAATTTTTT");
-            var matches = strand.ApproximatePatternMatchesIndicies(new NucleotideDna("AAA"), 2);
+            DnaStrand strand = new DnaStrand("TTTTTTAAATTTTAAATTTTTT");
+            var matches = strand.ApproximatePatternMatchesIndicies(new DnaStrand("AAA"), 2);
 
             Assert.AreEqual(10, matches.Count());
             Assert.IsTrue(matches.Contains(4));
@@ -45,8 +45,8 @@ namespace BioTest
         [TestMethod]
         public void ApproximatePatternMatchesIndicies_Test2()
         {
-            NucleotideDna strand = new NucleotideDna("GAGCGCTGGGTTAACTCGCTACTTCCCGACGAGCGCTGTGGCGCAAATTGGCGATGAAACTGCAGAGAGAACTGGTCATCCAACTGAATTCTCCCCGCTATCGCATTTTGATGCGCGCCGCGTCGATT");
-            var matches = strand.ApproximatePatternMatchesIndicies(new NucleotideDna("GAGCGCTGG"), 2);
+            DnaStrand strand = new DnaStrand("GAGCGCTGGGTTAACTCGCTACTTCCCGACGAGCGCTGTGGCGCAAATTGGCGATGAAACTGCAGAGAGAACTGGTCATCCAACTGAATTCTCCCCGCTATCGCATTTTGATGCGCGCCGCGTCGATT");
+            var matches = strand.ApproximatePatternMatchesIndicies(new DnaStrand("GAGCGCTGG"), 2);
 
             Assert.AreEqual(3, matches.Count());
             Assert.IsTrue(matches.Contains(0));
@@ -58,8 +58,8 @@ namespace BioTest
         [TestMethod]
         public void ApproximatePatternMatchesIndicies_Test3()
         {
-            NucleotideDna strand = new NucleotideDna("CCAAATCCCCTCATGGCATGCATTCCCGCAGTATTTAATCCTTTCATTCTGCATATAAGTAGTGAAGGTATAGAAACCCGTTCAAGCCCGCAGCGGTAAAACCGAGAACCATGATGAATGCACGGCGATTGCGCCATAATCCAAACA");
-            var matches = strand.ApproximatePatternMatchesIndicies(new NucleotideDna("AATCCTTTCA"), 3);
+            DnaStrand strand = new DnaStrand("CCAAATCCCCTCATGGCATGCATTCCCGCAGTATTTAATCCTTTCATTCTGCATATAAGTAGTGAAGGTATAGAAACCCGTTCAAGCCCGCAGCGGTAAAACCGAGAACCATGATGAATGCACGGCGATTGCGCCATAATCCAAACA");
+            var matches = strand.ApproximatePatternMatchesIndicies(new DnaStrand("AATCCTTTCA"), 3);
 
             Assert.AreEqual(4, matches.Count());
             Assert.IsTrue(matches.Contains(3));
@@ -73,8 +73,8 @@ namespace BioTest
         [TestMethod]
         public void ApproximatePatternMatchesIndicies_Test4()
         {
-            NucleotideDna strand = new NucleotideDna("CCGTCATCCGTCATCCTCGCCACGTTGGCATGCATTCCGTCATCCCGTCAGGCATACTTCTGCATATAAGTACAAACATCCGTCATGTCAAAGGGAGCCCGCAGCGGTAAAACCGAGAACCATGATGAATGCACGGCGATTGC");
-            var matches = strand.ApproximatePatternMatchesIndicies(new NucleotideDna("CCGTCATCC"), 3);
+            DnaStrand strand = new DnaStrand("CCGTCATCCGTCATCCTCGCCACGTTGGCATGCATTCCGTCATCCCGTCAGGCATACTTCTGCATATAAGTACAAACATCCGTCATGTCAAAGGGAGCCCGCAGCGGTAAAACCGAGAACCATGATGAATGCACGGCGATTGC");
+            var matches = strand.ApproximatePatternMatchesIndicies(new DnaStrand("CCGTCATCC"), 3);
 
             Assert.AreEqual(8, matches.Count());
             Assert.IsTrue(matches.Contains(0));
@@ -91,8 +91,8 @@ namespace BioTest
         [TestMethod]
         public void ApproximatePatternMatchesIndicies_Test5()
         {
-            NucleotideDna strand = new NucleotideDna("AAAAAA");
-            var matches = strand.ApproximatePatternMatchesIndicies(new NucleotideDna("TTT"), 3);
+            DnaStrand strand = new DnaStrand("AAAAAA");
+            var matches = strand.ApproximatePatternMatchesIndicies(new DnaStrand("TTT"), 3);
 
             Assert.AreEqual(4, matches.Count());
             Assert.IsTrue(matches.Contains(0));
@@ -105,8 +105,8 @@ namespace BioTest
         [TestMethod]
         public void ApproximatePatternMatchesIndicies_Test6()
         {
-            NucleotideDna strand = new NucleotideDna("CCACCT");
-            var matches = strand.ApproximatePatternMatchesIndicies(new NucleotideDna("CCA"), 0);
+            DnaStrand strand = new DnaStrand("CCACCT");
+            var matches = strand.ApproximatePatternMatchesIndicies(new DnaStrand("CCA"), 0);
 
             Assert.AreEqual(1, matches.Count());
             Assert.IsTrue(matches.Contains(0));
@@ -116,8 +116,8 @@ namespace BioTest
         [TestMethod]
         public void ApproximatePatternMatchesIndicies_Test7()
         {
-            NucleotideDna strand = Load.LoadStrand("datasets//approxPatternMatchesIndicies_dataset.txt");
-            var matches = strand.ApproximatePatternMatchesIndicies(new NucleotideDna("GACCACCGAGG"), 6);
+            DnaStrand strand = Load.LoadStrand("datasets//approxPatternMatchesIndicies_dataset.txt");
+            var matches = strand.ApproximatePatternMatchesIndicies(new DnaStrand("GACCACCGAGG"), 6);
 
             string visual = "";
             foreach (int i in matches)

@@ -5,79 +5,79 @@ using Bioinformatics;
 namespace BioTest
 {
     [TestClass]
-    public class NucleotideDnaTests
+    public class DnaStrandTests
     {
         [TestMethod]
-        public void NucleotideDna_BaseCase()
+        public void DnaStrand_BaseCase()
         {
-            NucleotideDna d = new NucleotideDna("");   
+            DnaStrand d = new DnaStrand("");   
         }
 
 
         [TestMethod]
-        public void NucleotideDna_ValidInput1()
+        public void DnaStrand_ValidInput1()
         {
-            NucleotideDna d = new NucleotideDna("A");
+            DnaStrand d = new DnaStrand("A");
         }
 
 
         [TestMethod]
-        public void NucleotideDna_ValidInput2()
+        public void DnaStrand_ValidInput2()
         {
-            NucleotideDna d = new NucleotideDna("TA");
+            DnaStrand d = new DnaStrand("TA");
         }
 
 
         [TestMethod]
-        public void NucleotideDna_ValidInput3()
+        public void DnaStrand_ValidInput3()
         {
-            NucleotideDna d = new NucleotideDna("GACCATACTG");
+            DnaStrand d = new DnaStrand("GACCATACTG");
         }
 
 
         [TestMethod]
-        public void NucleotideDna_ValidInput4()
+        public void DnaStrand_ValidInput4()
         {
-            NucleotideDna d = new NucleotideDna("GACCA TACTG");
+            DnaStrand d = new DnaStrand("GACCA TACTG");
         }
 
 
         [TestMethod]
-        public void NucleotideDna_ValidInput5()
+        public void DnaStrand_ValidInput5()
         {
-            NucleotideDna d = new NucleotideDna(" GACCATACTG ");
-        }
-
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void NucleotideDna_InvalidInput1()
-        {
-            NucleotideDna d = new NucleotideDna("Ea");
+            DnaStrand d = new DnaStrand(" GACCATACTG ");
         }
 
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void NucleotideDna_InvalidInput2()
+        public void DnaStrand_InvalidInput1()
         {
-            NucleotideDna d = new NucleotideDna("invalid");
+            DnaStrand d = new DnaStrand("Ea");
         }
 
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void NucleotideDna_InvalidInput3()
+        public void DnaStrand_InvalidInput2()
         {
-            NucleotideDna d = new NucleotideDna("ATGC1");
+            DnaStrand d = new DnaStrand("invalid");
         }
 
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void NucleotideDna_InvalidInput4()
+        public void DnaStrand_InvalidInput3()
         {
-            NucleotideDna d = new NucleotideDna("ATGGTACECT");
+            DnaStrand d = new DnaStrand("ATGC1");
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void DnaStrand_InvalidInput4()
+        {
+            DnaStrand d = new DnaStrand("ATGGTACECT");
         }
 
     }

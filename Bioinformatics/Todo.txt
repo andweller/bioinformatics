@@ -1,0 +1,4 @@
+﻿Todo List - Bioinformatics
+
++ Refactor SubStrand
++ Refactor DnaStrand _strand to Dna

@@ -11,7 +11,7 @@ namespace BioTest
         [TestMethod]
         public void CytoGuanSkewMax_Simple()
         {
-            NucleotideDna strand = new NucleotideDna("TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT");
+            DnaStrand strand = new DnaStrand("TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT");
             var minLocations = strand.CytosineGuanineSkewMaximumIndicies();
 
             Assert.AreEqual<int>(2, minLocations.Count());
@@ -23,7 +23,7 @@ namespace BioTest
         [TestMethod]
         public void CytoGuanSkewMax_Test1()
         {
-            NucleotideDna strand = new NucleotideDna("ACCG");
+            DnaStrand strand = new DnaStrand("ACCG");
             var minLocations = strand.CytosineGuanineSkewMaximumIndicies();
 
             Assert.AreEqual<int>(1, minLocations.Count());
@@ -34,7 +34,7 @@ namespace BioTest
         [TestMethod]
         public void CytoGuanSkewMax_Test2()
         {
-            NucleotideDna strand = new NucleotideDna("ACCC");
+            DnaStrand strand = new DnaStrand("ACCC");
             var minLocations = strand.CytosineGuanineSkewMaximumIndicies();
 
             Assert.AreEqual<int>(1, minLocations.Count());
@@ -46,7 +46,7 @@ namespace BioTest
         [TestMethod]
         public void CytoGuanSkewMax_Test3()
         {
-            NucleotideDna strand = new NucleotideDna("CCGGGT");
+            DnaStrand strand = new DnaStrand("CCGGGT");
             var minLocations = strand.CytosineGuanineSkewMaximumIndicies();
 
             Assert.AreEqual<int>(1, minLocations.Count());
@@ -58,7 +58,7 @@ namespace BioTest
         [TestMethod]
         public void CytoGuanSkewMax_Test4()
         {
-            NucleotideDna strand = new NucleotideDna("CCGGCCGG");
+            DnaStrand strand = new DnaStrand("CCGGCCGG");
             var minLocations = strand.CytosineGuanineSkewMaximumIndicies();
 
             Assert.AreEqual<int>(2, minLocations.Count());
@@ -71,7 +71,7 @@ namespace BioTest
         [TestMethod]
         public void CytoGuanSkewMax_Test5()
         {
-            NucleotideDna strand = Load.LoadStrand("datasets//cytoguanMaxSkew_dataset.txt");
+            DnaStrand strand = Load.LoadStrand("datasets//cytoguanMaxSkew_dataset.txt");
             var minLocations = strand.CytosineGuanineSkewMaximumIndicies();
 
             Assert.AreEqual<int>(5, minLocations.Count());
@@ -87,7 +87,7 @@ namespace BioTest
         [TestMethod]
         public void CytoGuanSkewMax_Test6()
         {
-            NucleotideDna strand = Load.LoadStrand("datasets//cytoguanMaxSkew_dataset2.txt");
+            DnaStrand strand = Load.LoadStrand("datasets//cytoguanMaxSkew_dataset2.txt");
             var minLocations = strand.CytosineGuanineSkewMaximumIndicies();
 
             Assert.AreEqual<int>(1, minLocations.Count());
@@ -99,7 +99,7 @@ namespace BioTest
         [TestMethod]
         public void CytoGuanSkewMax_E_Coli()
         {
-            NucleotideDna strand = Load.LoadStrand("genomes//E_coli.txt");
+            DnaStrand strand = Load.LoadStrand("genomes//E_coli.txt");
             var minLocations = strand.CytosineGuanineSkewMaximumIndicies();
 
             Assert.AreEqual<int>(4, minLocations.Count());

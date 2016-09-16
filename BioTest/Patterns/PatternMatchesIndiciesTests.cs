@@ -11,8 +11,8 @@ namespace BioTest
         [TestMethod]
         public void PatternMatchesIndicies_Simple()
         {
-            NucleotideDna strand = new NucleotideDna("GATATATGCATATACTT");
-            var matches = strand.PatternMatchesIndicies(new NucleotideDna("ATAT"));
+            DnaStrand strand = new DnaStrand("GATATATGCATATACTT");
+            var matches = strand.PatternMatchesIndicies(new DnaStrand("ATAT"));
 
             Assert.AreEqual(3, matches.Count());
             Assert.IsTrue(matches.Contains(1));
@@ -24,8 +24,8 @@ namespace BioTest
         [TestMethod]
         public void PatternMatchesIndicies_Test1()
         {
-            NucleotideDna strand = new NucleotideDna("TTTTACACTTTTTTGTGTAAAAA");
-            var matches = strand.PatternMatchesIndicies(new NucleotideDna("ACAC"));
+            DnaStrand strand = new DnaStrand("TTTTACACTTTTTTGTGTAAAAA");
+            var matches = strand.PatternMatchesIndicies(new DnaStrand("ACAC"));
 
             Assert.AreEqual(1, matches.Count());
             Assert.IsTrue(matches.Contains(4));
@@ -35,8 +35,8 @@ namespace BioTest
         [TestMethod]
         public void PatternMatchesIndicies_Test2()
         {
-            NucleotideDna strand = new NucleotideDna("AAAGAGTGTCTGATAGCAGCTTCTGAACTGGTTACCTGCCGTGAGTAAATTAAATTTTATTGACTTAGGTCACTAAATACTTTAACCAATATAGGCATAGCGCACAGACAGATAATAATTACAGAGTACACAACATCCAT");
-            var matches = strand.PatternMatchesIndicies(new NucleotideDna("AAA"));
+            DnaStrand strand = new DnaStrand("AAAGAGTGTCTGATAGCAGCTTCTGAACTGGTTACCTGCCGTGAGTAAATTAAATTTTATTGACTTAGGTCACTAAATACTTTAACCAATATAGGCATAGCGCACAGACAGATAATAATTACAGAGTACACAACATCCAT");
+            var matches = strand.PatternMatchesIndicies(new DnaStrand("AAA"));
 
             Assert.AreEqual(4, matches.Count());
             Assert.IsTrue(matches.Contains(0));
@@ -49,8 +49,8 @@ namespace BioTest
         [TestMethod]
         public void PatternMatchesIndicies_Test3()
         {
-            NucleotideDna strand = new NucleotideDna("AGCGTGCCGAAATATGCCGCCAGACCTGCTGCGGTGGCCTCGCCGACTTCACGGATGCCAAGTGCATAGAGGAAGCGAGCAAAGGTGGTTTCTTTCGCTTTATCCAGCGCGTTAACCACGTTCTGTGCCGACTTT");
-            var matches = strand.PatternMatchesIndicies(new NucleotideDna("TTT"));
+            DnaStrand strand = new DnaStrand("AGCGTGCCGAAATATGCCGCCAGACCTGCTGCGGTGGCCTCGCCGACTTCACGGATGCCAAGTGCATAGAGGAAGCGAGCAAAGGTGGTTTCTTTCGCTTTATCCAGCGCGTTAACCACGTTCTGTGCCGACTTT");
+            var matches = strand.PatternMatchesIndicies(new DnaStrand("TTT"));
 
             Assert.AreEqual(4, matches.Count());
             Assert.IsTrue(matches.Contains(88));
@@ -63,8 +63,8 @@ namespace BioTest
         [TestMethod]
         public void PatternMatchesIndicies_Test4()
         {
-            NucleotideDna strand = new NucleotideDna("ATATATA");
-            var matches = strand.PatternMatchesIndicies(new NucleotideDna("ATA"));
+            DnaStrand strand = new DnaStrand("ATATATA");
+            var matches = strand.PatternMatchesIndicies(new DnaStrand("ATA"));
 
             Assert.AreEqual(3, matches.Count());
             Assert.IsTrue(matches.Contains(0));
@@ -76,8 +76,8 @@ namespace BioTest
         [TestMethod]
         public void PatternMatchesIndicies_Test5()
         {
-            NucleotideDna strand = Load.LoadStrand("datasets//patternMatchesIndicies_dataset.txt");
-            var matches = strand.PatternMatchesIndicies(new NucleotideDna("CCCAAATCC"));
+            DnaStrand strand = Load.LoadStrand("datasets//patternMatchesIndicies_dataset.txt");
+            var matches = strand.PatternMatchesIndicies(new DnaStrand("CCCAAATCC"));
 
             string visual = "";
             foreach (int i in matches)
@@ -92,8 +92,8 @@ namespace BioTest
         [TestMethod]
         public void PatternMatchesIndicies_Vibrio_Cholerae()
         {
-            NucleotideDna strand = Load.LoadStrand("genomes//Vibrio_cholerae.txt");
-            var matches = strand.PatternMatchesIndicies(new NucleotideDna("CTTGATCAT"));
+            DnaStrand strand = Load.LoadStrand("genomes//Vibrio_cholerae.txt");
+            var matches = strand.PatternMatchesIndicies(new DnaStrand("CTTGATCAT"));
 
             string visual = "";
             foreach (int i in matches)
