@@ -7,8 +7,20 @@ using Bioinformatics.Algorithms;
 
 namespace Bioinformatics
 {
+    /// <summary>
+    /// Motif searching algorithms
+    /// </summary>
     public static class Motif
     {
+
+        /// <summary>
+        /// Generates Motif pattern matches from the given Dna strands.
+        /// Brute Force approach.
+        /// </summary>
+        /// <param name="strands">Source strands.</param>
+        /// <param name="patternLength">The length of patterns to search for.</param>
+        /// <param name="maxDifferences">The maximum number of differences for mismatches.</param>
+        /// <returns></returns>
         public static IEnumerable<DnaStrand> BruteEnumeration(IEnumerable<DnaStrand> strands, int patternLength, int maxDifferences)
         {
             SortedSet<DnaStrand> patterns = new SortedSet<DnaStrand>();
@@ -25,16 +37,5 @@ namespace Bioinformatics
             return patterns;
         }
 
-
-        //MotifEnumeration(Dna, k, d)
-        //Patterns ← an empty set
-        //for each k-mer Pattern in Dna
-        //    for each k-mer Pattern’ differing from Pattern by at most d
-        //      mismatches
-        //        if Pattern' appears in each string from Dna with at most d
-        //        mismatches
-        //            add Pattern' to Patterns
-        //remove duplicates from Patterns
-        //return Patterns
     }
 }
