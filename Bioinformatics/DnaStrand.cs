@@ -90,7 +90,7 @@ namespace Bioinformatics
             int subLength = substrand.Dna.Length;
             int buffer = Dna.Length - subLength;
 
-            for (int index = 0; index < buffer; index++)
+            for (int index = 0; index <= buffer; index++)
             {
                 int difference = Hamming.Distance(Dna.Substring(index, subLength), substrand.Dna);
 
