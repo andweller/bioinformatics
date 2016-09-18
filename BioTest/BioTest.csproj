@@ -55,6 +55,7 @@
     <Compile Include="Algorithms\NucleotideNeighborTests.cs" />
     <Compile Include="Bio\CytosineGuanineSkewMaxTests.cs" />
     <Compile Include="Bio\NucleotideDnaTests.cs" />
+    <Compile Include="MotifEnumTests.cs" />
     <Compile Include="Patterns\ApproximatePatternCountTests.cs" />
     <Compile Include="Patterns\ApproximatePatternMatchesIndiciesTests.cs" />
     <Compile Include="Patterns\FrequentPatternsTests.cs" />

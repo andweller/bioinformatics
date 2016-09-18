@@ -80,6 +80,30 @@ namespace Bioinformatics
 
 
         /// <summary>
+        /// Returns whether the given substrand is contained within the strand.
+        /// </summary>
+        /// <param name="substrand">The substrand to search for.</param>
+        /// <param name="maxDifferences">The maximum number of differences for mismatches. Default is zero.</param>
+        /// <returns></returns>
+        public bool Contains(DnaStrand substrand, int maxDifferences = 0)
+        {
+            int subLength = substrand.Dna.Length;
+            int buffer = Dna.Length - subLength;
+
+            for (int index = 0; index < buffer; index++)
+            {
+                int difference = Hamming.Distance(Dna.Substring(index, subLength), substrand.Dna);
+
+                if (difference <= maxDifferences)
+                    return true;
+            }
+
+            return false;
+        }
+
+
+
+        /// <summary>
         /// Computes the reverse complement of the nucleotide strand.
         /// Running Time: O(n)
         /// </summary>

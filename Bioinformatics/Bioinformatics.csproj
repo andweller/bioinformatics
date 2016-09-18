@@ -45,6 +45,7 @@
     <Compile Include="Algorithms\Neighbor.cs" />
     <Compile Include="DnaStrand.cs" />
     <Compile Include="Genome.cs" />
+    <Compile Include="Motif.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

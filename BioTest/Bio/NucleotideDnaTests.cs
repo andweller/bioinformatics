@@ -80,5 +80,32 @@ namespace BioTest
             DnaStrand d = new DnaStrand("ATGGTACECT");
         }
 
+
+        [TestMethod]
+        public void DnaStrand_Contains1()
+        {
+            DnaStrand d = new DnaStrand("GACCA");
+
+            Assert.IsTrue(d.Contains(new DnaStrand("AC")));
+        }
+
+
+        [TestMethod]
+        public void DnaStrand_Contains2()
+        {
+            DnaStrand d = new DnaStrand("GACCA");
+
+            Assert.IsFalse(d.Contains(new DnaStrand("CCC")));
+        }
+
+
+        [TestMethod]
+        public void DnaStrand_Contains3()
+        {
+            DnaStrand d = new DnaStrand("GACCA");
+
+            Assert.IsTrue(d.Contains(new DnaStrand("CCC"), 1));
+        }
+
     }
 }
