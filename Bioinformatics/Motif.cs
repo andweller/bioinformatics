@@ -37,5 +37,37 @@ namespace Bioinformatics
             return patterns;
         }
 
+
+
+        /// <summary>
+        /// Returns the cummulative distance between the given pattern and matches in the strand collection.
+        /// </summary>
+        /// <param name="strands">Strands to search against</param>
+        /// <param name="pattern">The given pattern</param>
+        /// <returns></returns>
+        public static int DistanceBetweenPatternsAndStrands(IEnumerable<DnaStrand> strands, DnaStrand pattern)
+        {
+            int distance = 0;
+
+            foreach (DnaStrand strand in strands)
+            {
+                int hamming = Int32.MaxValue;
+
+                int buffer = strand.Dna.Length - pattern.Dna.Length;
+
+                for (int index = 0; index <= buffer; index++)
+                {
+                    string substrand = strand.Dna.Substring(index, pattern.Dna.Length);
+                    int subDistance = Hamming.Distance(substrand, pattern.Dna);
+                    if (hamming > subDistance)
+                        hamming = subDistance;
+                }
+
+                distance = distance + hamming;
+            }
+
+            return distance;
+        }
+
     }
 }

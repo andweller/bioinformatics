@@ -55,7 +55,8 @@
     <Compile Include="Algorithms\NucleotideNeighborTests.cs" />
     <Compile Include="Bio\CytosineGuanineSkewMaxTests.cs" />
     <Compile Include="Bio\NucleotideDnaTests.cs" />
-    <Compile Include="MotifEnumTests.cs" />
+    <Compile Include="Motif\MotifDistanceTests.cs" />
+    <Compile Include="Motif\MotifEnumTests.cs" />
     <Compile Include="Patterns\ApproximatePatternCountTests.cs" />
     <Compile Include="Patterns\ApproximatePatternMatchesIndiciesTests.cs" />
     <Compile Include="Patterns\FrequentPatternsTests.cs" />
@@ -82,6 +83,7 @@
     <Content Include="bin\Debug\datasets\reverseComplement_dataset.txt" />
     <Content Include="bin\Debug\genomes\Vibrio_cholerae.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
