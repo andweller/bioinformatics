@@ -101,6 +101,44 @@ namespace Bioinformatics
 
 
         /// <summary>
+        /// Finds the most probable subpattern based on the given profile.
+        /// </summary>
+        /// <param name="strand">The strand to search against</param>
+        /// <param name="patternLength">The length of subpattern to search for</param>
+        /// <param name="profile">Assumes keys of 'A' 'C' 'T' 'G' and their probabilities per strand index</param>
+        /// <returns></returns>
+        public static DnaStrand ProfileMostProbablePattern(DnaStrand strand, int patternLength, Dictionary<char, List<double>> profile)
+        {
+            DnaStrand pattern = null;
+            double mostProbable = 0.0;
+
+            int buffer = strand.Dna.Length - patternLength;
+
+            for (int index = 0; index <= buffer; index++)
+            {
+                DnaStrand substrand = strand.SubStrand(index, patternLength);
+
+                double testProbability = 1.0;
+
+                for (int subIndex = 0; subIndex < patternLength; subIndex++)
+                {
+                    testProbability *= profile[substrand.Dna[subIndex]][subIndex];
+                }
+
+                if (testProbability > mostProbable)
+                {
+                    mostProbable = testProbability;
+                    pattern = substrand;
+                }
+            }
+
+
+            return pattern;
+        }
+
+
+
+        /// <summary>
         /// Generates a DNA string from a given integer value.
         /// Used as a reverse hash function when generating strand values.
         /// </summary>
