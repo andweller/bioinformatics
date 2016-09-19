@@ -57,6 +57,7 @@
     <Compile Include="Bio\NucleotideDnaTests.cs" />
     <Compile Include="Motif\MotifDistanceTests.cs" />
     <Compile Include="Motif\MotifEnumTests.cs" />
+    <Compile Include="Motif\MotifMediumTests.cs" />
     <Compile Include="Patterns\ApproximatePatternCountTests.cs" />
     <Compile Include="Patterns\ApproximatePatternMatchesIndiciesTests.cs" />
     <Compile Include="Patterns\FrequentPatternsTests.cs" />

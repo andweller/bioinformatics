@@ -69,5 +69,55 @@ namespace Bioinformatics
             return distance;
         }
 
+
+
+        /// <summary>
+        /// Brute Force implementation to find the median string within the given strands.
+        /// </summary>
+        /// <param name="strands">Strands to search against</param>
+        /// <param name="patternLength">The pattern length to search for</param>
+        /// <returns></returns>
+        public static DnaStrand MedianString(IEnumerable<DnaStrand> strands, int patternLength)
+        {
+            int distance = Int32.MaxValue;
+            double range = Math.Pow(4, patternLength) - 1;
+            DnaStrand median = null;
+
+            for (int i = 0; i < range; i++)
+            {
+                DnaStrand pattern = new DnaStrand(NumberToPattern(i, patternLength));
+
+                int iDistance = DistanceBetweenPatternsAndStrands(strands, pattern);
+                if (distance > iDistance)
+                {
+                    distance = iDistance;
+                    median = pattern;
+                }
+            }
+
+            return median;
+        }
+
+
+
+        /// <summary>
+        /// Generates a DNA string from a given integer value.
+        /// Used as a reverse hash function when generating strand values.
+        /// </summary>
+        /// <param name="value">The integer hash value</param>
+        /// <param name="length">The length of the generated strand</param>
+        /// <returns></returns>
+        private static string NumberToPattern(int value, int length)
+        {
+            if (length == 1)
+                return "ATGC"[value].ToString();
+
+            int prefix = value / 4;
+            int remainder = value % 4;
+            char symbol = "ATGC"[remainder];
+            string pattern = NumberToPattern(prefix, length - 1);
+            return pattern + symbol;
+        }
+
     }
 }
