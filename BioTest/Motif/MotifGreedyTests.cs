@@ -22,7 +22,7 @@ namespace BioTest
                 new DnaStrand("CAATAATATTCG")
             };
 
-            var results = Motif.GreedyMotifSearch(strands, 3).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 3, false).ToList();
 
             Assert.AreEqual(5, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "CAG"));
@@ -45,7 +45,7 @@ namespace BioTest
                 new DnaStrand("TTCCTT")
             };
 
-            var results = Motif.GreedyMotifSearch(strands, 3).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 3, false).ToList();
 
             Assert.AreEqual(4, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "GCC"));
@@ -71,7 +71,7 @@ namespace BioTest
                 new DnaStrand("AATTGAAAGGCGCATCTTACTCTTTTCGCTTTCAAAAAAA")
             };
 
-            var results = Motif.GreedyMotifSearch(strands, 5).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 5, false).ToList();
 
             Assert.AreEqual(8, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "GAGGC"));
@@ -98,7 +98,7 @@ namespace BioTest
                 new DnaStrand("ATGCCTTCCGCGCCAATTGTTCGTATCGTCGCCACTTCGAGTG")
             };
 
-            var results = Motif.GreedyMotifSearch(strands, 6).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 6, false).ToList();
 
             Assert.AreEqual(5, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "GTGCGT"));
@@ -125,7 +125,7 @@ namespace BioTest
                 new DnaStrand("TCTGTTGTTGCTAACACCGTTAAAGGCGGCGACGGCAACT")
             };
 
-            var results = Motif.GreedyMotifSearch(strands, 5).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 5, false).ToList();
 
             Assert.AreEqual(8, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "GCAGC"));
@@ -172,7 +172,7 @@ namespace BioTest
                 new DnaStrand("CATCACGCAATGCGAACGACTGAAGAAGGCAAGGACAGTTACGCAACCTATCATGCGTAGATCAAGGTAATCGGGACCGGTCTGGAATTTAGGAGTGTTGTTATCGCAACCTGCGATCATAACATCCTCTTATTGCCTATAAACCGACCCTGACCG")
             };
 
-            var results = Motif.GreedyMotifSearch(strands, 12).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 12, false).ToList();
 
             Assert.AreEqual(25, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "AGTGGGTATCTC"));
@@ -236,7 +236,7 @@ namespace BioTest
                 new DnaStrand("TTCCGTACAATGATATGACTTACGGACTAATAATGAGGCGCCACGTTACATACCTCAGCAAGTGAGAGAACGAAGGAGTTACTCCCCGTCCACATTCATCATAATCGCTACTCTACCCCGACTTGTTAGGTTTGCTCCTGTGCAACGGCTTGGGCC")
             };
 
-            var results = Motif.GreedyMotifSearch(strands, 12).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 12, false).ToList();
 
             string visual = "";
             foreach (DnaStrand i in results)
@@ -264,7 +264,7 @@ namespace BioTest
                 new DnaStrand("TCGGGGATTCCT"),
                 new DnaStrand("TAGGGGAACTAC"),
                 new DnaStrand("TCGGGTATAACC")
-            });
+            }, false);
 
 
             Assert.IsTrue(profile['A'][0] == 0.2);
@@ -360,7 +360,7 @@ namespace BioTest
                 new DnaStrand("CAATAATATTCG")
             };
 
-            var results = Motif.GreedyMotifSearchPseudoCounts(strands, 3).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 3).ToList();
 
             Assert.AreEqual(5, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "TTC"));
@@ -386,7 +386,7 @@ namespace BioTest
                 new DnaStrand("AATTGAAAGGCGCATCTTACTCTTTTCGCTTTCAAAAAAA")
             };
 
-            var results = Motif.GreedyMotifSearchPseudoCounts(strands, 5).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 5).ToList();
 
             Assert.AreEqual(8, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "AGGCG"));
@@ -416,7 +416,7 @@ namespace BioTest
                 new DnaStrand("AATTGAACATCTTACTCTTTTCGCTTTCAAAAAAAAGGCG")
             };
 
-            var results = Motif.GreedyMotifSearchPseudoCounts(strands, 5).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 5).ToList();
 
             Assert.AreEqual(8, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "AGGCG"));
@@ -446,7 +446,7 @@ namespace BioTest
                 new DnaStrand("AAAGGCGCATCTTACTCTTTTCGCTTTCAAAAAAAAATTG")
             };
 
-            var results = Motif.GreedyMotifSearchPseudoCounts(strands, 5).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 5).ToList();
 
             Assert.AreEqual(8, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "GGCGG"));
@@ -493,7 +493,7 @@ namespace BioTest
                 new DnaStrand("CATTTCTATAAAGCTACAATAATAATCCGCGCTGTCGGCAGACGTGGTACCGACCCTACTCCTACCGTTTGAGAGATGGAGGGTCTTCCCTGAACTAACGGCATGCATGAGAGGGGTACGACCCTGGTACTTCTGAAACCAGCATCCGCGGCGACG")
             };
 
-            var results = Motif.GreedyMotifSearchPseudoCounts(strands, 12).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 12).ToList();
 
             Assert.AreEqual(25, results.Count);
             Assert.IsTrue(results.Any(x => x.Dna == "CATCGCTTAACT"));
@@ -558,7 +558,7 @@ namespace BioTest
                 new DnaStrand("GCTCTATTTTACTCACGGAAACCGTACCCGTTACGGCACTCTGCCGCACGGGTCAGTGCTAAGCTTAATGCAAGCTTGGGAATTCTATGCGGCCTATGTTCCGCCCACAGTACTTAAGAGTGGAGAAGGAAACTCCCGCGTCTTTTAAGCTGTTTT")
             };
 
-            var results = Motif.GreedyMotifSearchPseudoCounts(strands, 12).ToList();
+            var results = Motif.GreedyMotifSearch(strands, 12).ToList();
 
             Assert.AreEqual(25, results.Count);
 
