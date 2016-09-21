@@ -187,6 +187,50 @@ namespace Bioinformatics
 
 
         /// <summary>
+        /// Generate a profile probability map for the given patterns.
+        /// </summary>
+        /// <param name="patterns">A collection of patterns. Assumes each pattern has the same length.</param>
+        /// <returns></returns>
+        public static Dictionary<char, List<double>> GenerateProfilePseudoCounts(IEnumerable<DnaStrand> patterns)
+        {
+            int patternLength = patterns.First().Dna.Length;
+            if (patterns.Any(x => x.Dna.Length != patternLength))
+                throw new ArgumentException("All patterns must have equal lengths");
+
+            // Generate an empty profile
+            Dictionary<char, List<double>> profile = new Dictionary<char, List<double>>
+            {
+                {'A', Enumerable.Range(0, patternLength).Select(x => 0.0).ToList() },
+                {'C', Enumerable.Range(0, patternLength).Select(x => 0.0).ToList() },
+                {'G', Enumerable.Range(0, patternLength).Select(x => 0.0).ToList() },
+                {'T', Enumerable.Range(0, patternLength).Select(x => 0.0).ToList() }
+            };
+
+            // Find each occurance of the nucleotides and update the profile
+            for (int index = 0; index < patternLength; index++)
+            {
+                foreach (DnaStrand pattern in patterns)
+                {
+                    char nucleotide = pattern.Dna[index];
+                    profile[nucleotide][index]++;
+                }
+            }
+
+            int numOfPatterns = patterns.Count();
+
+            // Calculates the average for the final profile
+            return new Dictionary<char, List<double>>
+            {
+                {'A', profile['A'].Select(x => (x + 1) / (numOfPatterns + 1)).ToList() },
+                {'C', profile['C'].Select(x => (x + 1) / (numOfPatterns + 1)).ToList() },
+                {'G', profile['G'].Select(x => (x + 1) / (numOfPatterns + 1)).ToList() },
+                {'T', profile['T'].Select(x => (x + 1) / (numOfPatterns + 1)).ToList() }
+            };
+        }
+
+
+
+        /// <summary>
         /// Searches for probable motifs using a Greedy approach.
         /// </summary>
         /// <param name="strands">Strands to search against</param>
@@ -210,6 +254,47 @@ namespace Bioinformatics
                 foreach (DnaStrand strand in strands.Skip(1))
                 {
                     var profile = GenerateProfile(motifs);
+                    motifs.Add(ProfileMostProbablePattern(strand, patternLength, profile));
+                }
+
+                int newScore = Score(motifs, motifs.First().Dna.Length);
+
+                if (newScore < bestScore)
+                {
+                    bestMotifs = motifs;
+                    bestScore = newScore;
+                }
+            }
+
+            return bestMotifs;
+        }
+
+
+
+        /// <summary>
+        /// Searches for probable motifs using a Greedy approach.
+        /// </summary>
+        /// <param name="strands">Strands to search against</param>
+        /// <param name="patternLength">The pattern length to search for</param>
+        /// <returns></returns>
+        public static IEnumerable<DnaStrand> GreedyMotifSearchPseudoCounts(IEnumerable<DnaStrand> strands, int patternLength)
+        {
+            DnaStrand firstStrand = strands.First();
+            int buffer = firstStrand.Dna.Length - patternLength;
+
+            List<DnaStrand> bestMotifs = null;
+            int bestScore = Int32.MaxValue;
+
+            // Iterate through each possible pattern in the first strand
+            for (int index = 0; index <= buffer; index++)
+            {
+                List<DnaStrand> motifs = new List<DnaStrand>();
+                motifs.Add(firstStrand.SubStrand(index, patternLength));
+
+                // Build a collection of motifs based on previous iterations
+                foreach (DnaStrand strand in strands.Skip(1))
+                {
+                    var profile = GenerateProfilePseudoCounts(motifs);
                     motifs.Add(ProfileMostProbablePattern(strand, patternLength, profile));
                 }
 
