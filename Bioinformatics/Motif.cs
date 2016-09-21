@@ -109,20 +109,24 @@ namespace Bioinformatics
         /// <returns></returns>
         public static DnaStrand ProfileMostProbablePattern(DnaStrand strand, int patternLength, Dictionary<char, List<double>> profile)
         {
-            DnaStrand pattern = null;
-            double mostProbable = 0.0;
+            // Returns first subpattern if no probable matches are found
+            DnaStrand pattern = strand.SubStrand(0, patternLength);
 
+            double mostProbable = 0.0;
             int buffer = strand.Dna.Length - patternLength;
 
+            // Iterate through each possible k-length pattern in strand
             for (int index = 0; index <= buffer; index++)
             {
                 DnaStrand substrand = strand.SubStrand(index, patternLength);
 
                 double testProbability = 1.0;
 
+                // Calculate the probability of the given substring using the profile
                 for (int subIndex = 0; subIndex < patternLength; subIndex++)
                 {
-                    testProbability *= profile[substrand.Dna[subIndex]][subIndex];
+                    double value = profile[substrand.Dna[subIndex]][subIndex];
+                    testProbability *= value;
                 }
 
                 if (testProbability > mostProbable)
@@ -134,6 +138,124 @@ namespace Bioinformatics
 
 
             return pattern;
+        }
+
+
+
+        /// <summary>
+        /// Generate a profile probability map for the given patterns.
+        /// </summary>
+        /// <param name="patterns">A collection of patterns. Assumes each pattern has the same length.</param>
+        /// <returns></returns>
+        public static Dictionary<char, List<double>> GenerateProfile(IEnumerable<DnaStrand> patterns)
+        {
+            int patternLength = patterns.First().Dna.Length;
+            if (patterns.Any(x => x.Dna.Length != patternLength))
+                throw new ArgumentException("All patterns must have equal lengths");
+
+            // Generate an empty profile
+            Dictionary<char, List<double>> profile = new Dictionary<char, List<double>>
+            {
+                {'A', Enumerable.Range(0, patternLength).Select(x => 0.0).ToList() },
+                {'C', Enumerable.Range(0, patternLength).Select(x => 0.0).ToList() },
+                {'G', Enumerable.Range(0, patternLength).Select(x => 0.0).ToList() },
+                {'T', Enumerable.Range(0, patternLength).Select(x => 0.0).ToList() }
+            };
+
+            // Find each occurance of the nucleotides and update the profile
+            for (int index = 0; index < patternLength; index++)
+            {
+                foreach (DnaStrand pattern in patterns)
+                {
+                    char nucleotide = pattern.Dna[index];
+                    profile[nucleotide][index]++;
+                }
+            }
+
+            int numOfPatterns = patterns.Count();
+
+            // Calculates the average for the final profile
+            return new Dictionary<char, List<double>>
+            {
+                {'A', profile['A'].Select(x => x / numOfPatterns).ToList() },
+                {'C', profile['C'].Select(x => x / numOfPatterns).ToList() },
+                {'G', profile['G'].Select(x => x / numOfPatterns).ToList() },
+                {'T', profile['T'].Select(x => x / numOfPatterns).ToList() }
+            };
+        }
+
+
+
+        /// <summary>
+        /// Searches for probable motifs using a Greedy approach.
+        /// </summary>
+        /// <param name="strands">Strands to search against</param>
+        /// <param name="patternLength">The pattern length to search for</param>
+        /// <returns></returns>
+        public static IEnumerable<DnaStrand> GreedyMotifSearch(IEnumerable<DnaStrand> strands, int patternLength)
+        {
+            DnaStrand firstStrand = strands.First();
+            int buffer = firstStrand.Dna.Length - patternLength;
+
+            List<DnaStrand> bestMotifs = null;
+            int bestScore = Int32.MaxValue;
+
+            // Iterate through each possible pattern in the first strand
+            for (int index = 0; index <= buffer; index++)
+            {
+                List<DnaStrand> motifs = new List<DnaStrand>();
+                motifs.Add(firstStrand.SubStrand(index, patternLength));
+
+                // Build a collection of motifs based on previous iterations
+                foreach (DnaStrand strand in strands.Skip(1))
+                {
+                    var profile = GenerateProfile(motifs);
+                    motifs.Add(ProfileMostProbablePattern(strand, patternLength, profile));
+                }
+
+                int newScore = Score(motifs, motifs.First().Dna.Length);
+
+                if (newScore < bestScore)
+                {
+                    bestMotifs = motifs;
+                    bestScore = newScore;
+                }
+            }
+
+            return bestMotifs;
+        }
+
+
+
+        /// <summary>
+        /// Calculates a motif score based on the sum of unpopular nucleotide occurances
+        /// </summary>
+        /// <param name="strands">Strands to score</param>
+        /// <param name="strandLength">The length of every strand in the strands collection.</param>
+        /// <returns></returns>
+        public static int Score(IEnumerable<DnaStrand> strands, int strandLength)
+        {
+            int score = 0;
+
+            for (int index = 0; index < strandLength; index++)
+            {
+                Dictionary<char, int> nucleotideCounts = new Dictionary<char, int>
+                {
+                    {'A', 0 },
+                    {'C', 0 },
+                    {'G', 0 },
+                    {'T', 0 }
+                };
+
+                foreach (DnaStrand strand in strands)
+                {
+                    nucleotideCounts[strand.Dna[index]]++;
+                }
+
+                score += (strands.Count() - nucleotideCounts.Values.Max());
+            }
+
+            return score;
         }
 
 
