@@ -60,6 +60,7 @@
     <Compile Include="Motif\MotifGreedyTests.cs" />
     <Compile Include="Motif\MotifMediumTests.cs" />
     <Compile Include="Motif\MotifMostProbableTests.cs" />
+    <Compile Include="Motif\RandomizedMotifTests.cs" />
     <Compile Include="Patterns\ApproximatePatternCountTests.cs" />
     <Compile Include="Patterns\ApproximatePatternMatchesIndiciesTests.cs" />
     <Compile Include="Patterns\FrequentPatternsTests.cs" />

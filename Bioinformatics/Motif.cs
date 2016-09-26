@@ -195,6 +195,39 @@ namespace Bioinformatics
 
 
         /// <summary>
+        /// Calculates a motif score based on the sum of unpopular nucleotide occurances
+        /// </summary>
+        /// <param name="strands">Strands to score</param>
+        /// <param name="strandLength">The length of every strand in the strands collection.</param>
+        /// <returns></returns>
+        public static int Score(IEnumerable<DnaStrand> strands, int strandLength)
+        {
+            int score = 0;
+
+            for (int index = 0; index < strandLength; index++)
+            {
+                Dictionary<char, int> nucleotideCounts = new Dictionary<char, int>
+                {
+                    {'A', 0 },
+                    {'C', 0 },
+                    {'G', 0 },
+                    {'T', 0 }
+                };
+
+                foreach (DnaStrand strand in strands)
+                {
+                    nucleotideCounts[strand.Dna[index]]++;
+                }
+
+                score += (strands.Count() - nucleotideCounts.Values.Max());
+            }
+
+            return score;
+        }
+
+
+
+        /// <summary>
         /// Searches for probable motifs using a Greedy approach.
         /// </summary>
         /// <param name="strands">Strands to search against</param>
@@ -237,34 +270,70 @@ namespace Bioinformatics
 
 
         /// <summary>
-        /// Calculates a motif score based on the sum of unpopular nucleotide occurances
+        /// Searches for approximate motifs using a random approach
         /// </summary>
-        /// <param name="strands">Strands to score</param>
-        /// <param name="strandLength">The length of every strand in the strands collection.</param>
+        /// <param name="strands">Strands to search against</param>
+        /// <param name="patternLength">The pattern length to search for</param>
+        /// <param name="iterations">The number of random iterations to perform</param>
         /// <returns></returns>
-        public static int Score(IEnumerable<DnaStrand> strands, int strandLength)
+        public static IEnumerable<DnaStrand> RandomizedMotifSearch(IEnumerable<DnaStrand> strands, int patternLength, int iterations = 1000)
         {
-            int score = 0;
+            IEnumerable<DnaStrand> bestMotifs = null;
+            int bestScore = Int32.MaxValue;
 
-            for (int index = 0; index < strandLength; index++)
+            while (iterations-- > 0)
             {
-                Dictionary<char, int> nucleotideCounts = new Dictionary<char, int>
+                var results = RandomizedMotifSearch_Iter(strands, patternLength);
+
+                int score = Score(results, patternLength);
+
+                if (score < bestScore)
                 {
-                    {'A', 0 },
-                    {'C', 0 },
-                    {'G', 0 },
-                    {'T', 0 }
-                };
+                    bestScore = score;
+                    bestMotifs = results;
+                }
+            }
+
+            return bestMotifs;
+        }
+
+
+
+        // A single iteration of the randomized search algorithm
+        private static IEnumerable<DnaStrand> RandomizedMotifSearch_Iter(IEnumerable<DnaStrand> strands, int patternLength)
+        {
+            List<DnaStrand> motifs = new List<DnaStrand>();
+            Random rGenerator = new Random();
+
+            foreach (DnaStrand strand in strands)
+                motifs.Add(strand.SubStrand(rGenerator.Next(0, strands.First().Dna.Length - patternLength), patternLength));
+
+            List<DnaStrand> bestMotifs = motifs;
+            int bestScore = Int32.MaxValue;
+
+            while (true)
+            {
+                var profile = GenerateProfile(motifs);
+
+                motifs.Clear();
 
                 foreach (DnaStrand strand in strands)
                 {
-                    nucleotideCounts[strand.Dna[index]]++;
+                    motifs.Add(ProfileMostProbablePattern(strand, patternLength, profile));
                 }
 
-                score += (strands.Count() - nucleotideCounts.Values.Max());
-            }
+                int score = Score(motifs, patternLength);
 
-            return score;
+                if (score < bestScore)
+                {
+                    bestScore = score;
+                    bestMotifs = motifs;
+                }
+                else
+                    break;
+            }
+            
+            return bestMotifs;
         }
 
 
