@@ -302,12 +302,7 @@ namespace Bioinformatics
         // A single iteration of the randomized search algorithm
         private static IEnumerable<DnaStrand> RandomizedMotifSearch_Iter(IEnumerable<DnaStrand> strands, int patternLength)
         {
-            List<DnaStrand> motifs = new List<DnaStrand>();
-            Random rGenerator = new Random();
-
-            foreach (DnaStrand strand in strands)
-                motifs.Add(strand.SubStrand(rGenerator.Next(0, strands.First().Dna.Length - patternLength), patternLength));
-
+            List<DnaStrand> motifs = SelectRandomPatterns(strands, patternLength).ToList();
             List<DnaStrand> bestMotifs = motifs;
             int bestScore = Int32.MaxValue;
 
@@ -334,6 +329,128 @@ namespace Bioinformatics
             }
             
             return bestMotifs;
+        }
+
+
+
+        /// <summary>
+        /// Searches for approximate motifs using Gibbs random samplling
+        /// </summary>
+        /// <param name="strands">Strands to search against</param>
+        /// <param name="patternLength">The pattern length to search for</param>
+        /// <param name="iterations">The number of Gibbs Sampling iterations per scenario</param>
+        /// <param name="scenarios">The number of scenarios to run</param>
+        /// <returns></returns>
+        public static IEnumerable<DnaStrand> GibbsSampler(IEnumerable<DnaStrand> strands, int patternLength, int iterations, int scenarios)
+        {
+            IEnumerable<DnaStrand> bestResult = GibbsSamplerIter(strands, patternLength, iterations);
+            int bestScore = Score(bestResult, patternLength);
+
+            for (int scenario = 1; scenario < scenarios; scenario++)
+            {
+                IEnumerable<DnaStrand> result = GibbsSamplerIter(strands, patternLength, iterations);
+                int score = Score(result, patternLength);
+
+                if (score < bestScore)
+                {
+                    bestScore = score;
+                    bestResult = result;
+                }
+            }
+
+            return bestResult;
+        }
+
+
+
+        // A Gibbs Sampler scenario
+        private static IEnumerable<DnaStrand> GibbsSamplerIter(IEnumerable<DnaStrand> strands, int patternLength, int iterations)
+        {
+            List<DnaStrand> motifs = SelectRandomPatterns(strands, patternLength).ToList();
+            List<DnaStrand> bestMotifs = motifs;
+            int bestScore = Int32.MaxValue;
+            Random rand = new Random();
+
+            for (int iter = 1; iter <= iterations; iter++)
+            {
+                int index = rand.Next(0, strands.Count());
+                var profile = GenerateProfile(motifs, true);
+                motifs[index] = FindGibbsPattern(strands.ElementAt(index), patternLength, profile);
+
+                int score = Score(motifs, patternLength);
+
+                if (score <= bestScore)
+                {
+                    bestScore = score;
+                    bestMotifs = motifs;
+                }
+            }
+
+            return bestMotifs;
+        }
+
+
+
+        // Finds a pattern for the given strand based on Gibbs Sampling the profile probabilities
+        private static DnaStrand FindGibbsPattern(DnaStrand strand, int patternLength, Dictionary<char, List<double>> profile)
+        {
+            List<double> probabilities = new List<double>();
+
+            int buffer = strand.Dna.Length - patternLength;
+            double sum = 0;
+
+            // Iterate through each possible k-length pattern in strand
+            for (int index = 0; index <= buffer; index++)
+            {
+                DnaStrand substrand = strand.SubStrand(index, patternLength);
+
+                double testProbability = 1.0;
+
+                // Calculate the probability of the given substring using the profile
+                for (int subIndex = 0; subIndex < patternLength; subIndex++)
+                {
+                    double value = profile[substrand.Dna[subIndex]][subIndex];
+                    testProbability *= value;
+                }
+
+                sum += testProbability;
+                probabilities.Add(testProbability);
+            }
+
+            Random rand = new Random();
+            double result = rand.NextDouble() * sum;
+
+            double finder = 0;
+            DnaStrand pattern = null;
+
+            // Find the weighted random result
+            for (int index = 0; index <= buffer && finder < result; index++)
+            {
+                finder += probabilities[index];
+                if (finder > result)
+                    pattern = strand.SubStrand(index, patternLength);
+            }
+
+            return pattern;
+        }
+
+
+
+        /// <summary>
+        /// Selects one pattern from each given strand at random
+        /// </summary>
+        /// <param name="strands">The strands to generate patterns from</param>
+        /// <param name="patternLength">The length of patterns to generate</param>
+        /// <returns></returns>
+        private static IEnumerable<DnaStrand> SelectRandomPatterns(IEnumerable<DnaStrand> strands, int patternLength)
+        {
+            List<DnaStrand> patterns = new List<DnaStrand>();
+            Random rGenerator = new Random();
+
+            foreach (DnaStrand strand in strands)
+                patterns.Add(strand.SubStrand(rGenerator.Next(0, strands.First().Dna.Length - patternLength), patternLength));
+
+            return patterns;
         }
 
 

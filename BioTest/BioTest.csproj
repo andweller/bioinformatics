@@ -57,6 +57,7 @@
     <Compile Include="Bio\NucleotideDnaTests.cs" />
     <Compile Include="Motif\MotifDistanceTests.cs" />
     <Compile Include="Motif\MotifEnumTests.cs" />
+    <Compile Include="Motif\MotifGibbsTest.cs" />
     <Compile Include="Motif\MotifGreedyTests.cs" />
     <Compile Include="Motif\MotifMediumTests.cs" />
     <Compile Include="Motif\MotifMostProbableTests.cs" />
